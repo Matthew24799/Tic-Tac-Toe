@@ -26,7 +26,14 @@ function gameLogic() {
 
     let activePlayer = players[0]
 
+    const switchTurn = () => {
+        activePlayer = activePlayer === players[0] ? players[1] : players[0]
+    }
+    switchTurn();
     console.log(activePlayer);
+    
+    console.log(activePlayer)
+    switchTurn()
 }
 
 const game = gameLogic();
