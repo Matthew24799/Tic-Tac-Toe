@@ -4,17 +4,31 @@ function  gameboard(board) {
        [0,0,0],    
        [0,0,0]  
     ];
-        console.log(board);
+        
    return board;
 }
 
-const game = gameboard();
+function gameLogic() {
+    let board = gameboard();
 
-function player1() {
-    firstPlayer = 1;
+
+    let players = [
+        {
+            player: "playerOne",
+            mark: 1
+        },
+        {
+            player: "playerTwo",
+            mark: 2
+        }
+
+    ]
+
+    let activePlayer = players[0]
+
+    console.log(activePlayer);
 }
 
-function player2() {
-    secondPlayer = 2
-}
+const game = gameLogic();
+
 
