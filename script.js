@@ -7,10 +7,18 @@ function  gameboard() {
 
    ];
 
+   const getBoard = () => board;
 
-    console.log(board)
+   const displayBoard = () => {
+        for (let i = 0; i < board.length; i++) {
+            console.log(board[i]);
+        }
+   }
 
-   return board;
+   displayBoard();
+  
+
+   return { board, displayBoard, };
 }
 
 
