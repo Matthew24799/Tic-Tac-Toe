@@ -1,40 +1,18 @@
-function  gameboard(board) {
-    const rows = 3;
-    const cols = 3;
-    board = []
+function  gameboard() {
+
+   const board = [
+    [0,0,0],
+    [0,0,0],
+    [0,0,0],
+
+   ];
 
 
-        for (let i = 0; i < rows; i++) {
-            board[i] = [];
-
-            for (let j = 0; j < cols; j++) {
-                board[i].push(cell());
-            }
-        }
-        
-
-        
-    
     console.log(board)
 
    return board;
 }
 
-
-function cell() {
-    let value = 0;
-
-    const addMark = (player) => {
-        value = player;
-    };
-
-    const getValue = () => value;
-
-    return {
-        addMark,
-        getValue
-    };
-  }
 
 function gameFlow() {
     const board = gameboard();
