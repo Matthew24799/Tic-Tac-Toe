@@ -17,7 +17,15 @@ function  gameboard() {
 
    const dropMark = (row, col, player) => {
 
-       board[row][col] = player
+        
+        if (board[row][col] === 1)  return 0;
+        if (board[row][col] === 2)  return 0; 
+        
+
+
+        board[row][col] = player
+           
+      
    }
 
    
@@ -59,7 +67,17 @@ function gameFlow() {
     const getActivePlayer = () => activePlayer
 
     const playTurn = (row, col) => {
-        board.dropMark(row,col,getActivePlayer().mark)
+
+
+      let placement = board.dropMark(row,col,getActivePlayer().mark)
+
+        if(placement===0) {
+            console.log("cant place here");
+            printNewRound();
+            return
+        }    
+
+
 
         switchTurn();
         printNewRound();
