@@ -15,10 +15,15 @@ function  gameboard() {
         }
    }
 
-   displayBoard();
+   const dropMark = (row, col, player) => {
+
+       board[row][col] = player
+   }
+
+   
   
 
-   return { board, displayBoard, };
+   return { getBoard, displayBoard, dropMark};
 }
 
 
@@ -44,8 +49,30 @@ function gameFlow() {
         activePlayer = activePlayer === players[0] ? players[1] : players[0]
     }
     
+    function printNewRound() {
+        board.displayBoard();
+        console.log(`${getActivePlayer().name}'s turn`)
+
+    }
+
+
+    const getActivePlayer = () => activePlayer
+
+    const playTurn = (row, col) => {
+        board.dropMark(row,col,getActivePlayer().mark)
+
+        switchTurn();
+        printNewRound();
+    };
+
+    printNewRound();
+
+    return { 
+        playTurn,
+        getActivePlayer
+    };
 }
 
-const game = gameboard();
+const game = gameFlow();
 
 
