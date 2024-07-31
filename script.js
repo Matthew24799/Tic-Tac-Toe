@@ -109,7 +109,18 @@ function gameFlow() {
             board.displayBoard();
             return;
         }
-            
+            const tie = () => {
+                const check = board.getBoard();
+                if (check[0][0] && check[0][1] && check[0][2] && check[1][0] && check[1][1] && check[1][2] && check[2][0] && check[2][1] && check[2][2])  return true;
+                    return false
+            }
+
+            tie();
+
+            if(tie()) {
+                console.log("TIE")
+                return
+            };
 
         switchTurn();
         printNewRound();
