@@ -77,7 +77,39 @@ function gameFlow() {
             return
         }    
 
+        function checkWin() {
+             const check = board.getBoard()
+             if (check[0][0] == getActivePlayer().mark && check[0][1] == getActivePlayer().mark && check[0][2] == getActivePlayer().mark) {
+                console.log(`${getActivePlayer().name} Wins`);
+                return true
+             } else if (check[1][0] == getActivePlayer().mark && check[1][1] == getActivePlayer().mark && check[1][2] == getActivePlayer().mark) {
+                console.log(`${getActivePlayer().name} Wins`);
+                return true
+             } else if (check[2][0] == getActivePlayer().mark && check[2][1] == getActivePlayer().mark && check[2][2] === getActivePlayer().mark) {
+                console.log(`${getActivePlayer().name} Wins`);
+                return true
+             } else if (check[0][0] == getActivePlayer().mark && check[1][1] == getActivePlayer().mark && check[2][2] == getActivePlayer().mark) {
+                console.log(`${getActivePlayer().name} Wins`);
+                return true 
+             } else  if (check[0][2] == getActivePlayer().mark && check[1][1] == getActivePlayer().mark && check[2][0] === getActivePlayer().mark) {
+                console.log(`${getActivePlayer().name} Wins`);
+                return true
+             } else if (check[0][0] == getActivePlayer().mark && check[1][0] == getActivePlayer().mark && check[2][0] == getActivePlayer().mark) {
+                console.log(`${getActivePlayer().name} Wins`);
+                return true
+             } else if (check[0][2] == getActivePlayer().mark && check[1][2] == getActivePlayer().mark &&  check[2][2] == getActivePlayer().mark) {
+                console.log(`${getActivePlayer().name} Wins`);
+                return true
+             } else return
+        }
 
+        checkWin();
+        
+        if(checkWin() === true) {
+            board.displayBoard();
+            return;
+        }
+            
 
         switchTurn();
         printNewRound();
