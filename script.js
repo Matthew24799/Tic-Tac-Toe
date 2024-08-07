@@ -10,22 +10,20 @@ function  gameboard() {
    const getBoard = () => board;
 
    const displayBoard = () => {
+
         for (let i = 0; i < board.length; i++) {
             console.log(board[i]);
         }
    }
 
-   const dropMark = (row, col, player) => {
-
-        
-        if (board[row][col] === 1)  return 0;
-        if (board[row][col] === 2)  return 0; 
-        
+   const dropMark = (row, col, player, mark) => {
+  
+        if (board[row][col] === "x")  return 0;
+        if (board[row][col] === "o")  return 0; 
 
 
-        board[row][col] = player
-           
-      
+        board[row][col] = player;
+       
    }
 
    
@@ -36,41 +34,78 @@ function  gameboard() {
 
 
 function gameFlow() {
-    const board = gameboard();
+    let board = gameboard();
+    const click = document.querySelectorAll(".cell")
+    const round = document.querySelector(".round")
+    const restart = document.querySelector(".restart")
 
-
+    restart.addEventListener("click", () => {
+      
+    })
     let players = [
         {
             name: "playerOne",
-            mark: 1
+            mark: "x",
+            color: "lightblue"
         },
         {
             name: "playerTwo",
-            mark: 2
+            mark: "o",
+            color: "lightcoral"
         }
 
     ]
+
+    const p1 = document.querySelector(".p1Heading");
+    p1.textContent = players[0].name;
+
+
+    const p2 = document.querySelector(".p2Heading");
+    p2.textContent = players[1].name;
 
     let activePlayer = players[0]
 
     const switchTurn = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0]
     }
+
     
     function printNewRound() {
         board.displayBoard();
         console.log(`${getActivePlayer().name}'s turn`)
-
+        round.textContent = `${getActivePlayer().name}'s turn`
     }
 
 
-    const getActivePlayer = () => activePlayer
 
-    const playTurn = (row, col) => {
+    
+    click.forEach((click) => {
+        click.addEventListener("click", () => {
+         row = click.getAttribute("row");
+         col = click.getAttribute("col");
+         let mark = getActivePlayer().mark
+         if(click.textContent == "") {
+            click.textContent = mark;
+            click.style.backgroundColor =getActivePlayer().color
+         }
+        
+         playTurn(row,col);
+ 
+          })
+       })
 
+
+       
+
+    
+
+    const getActivePlayer = () => activePlayer;
+
+
+    const playTurn = (row, col) => {    
 
       let placement = board.dropMark(row,col,getActivePlayer().mark)
-
+        
         if(placement===0) {
             console.log("cant place here");
             printNewRound();
@@ -85,13 +120,13 @@ function gameFlow() {
              } else if (check[1][0] == getActivePlayer().mark && check[1][1] == getActivePlayer().mark && check[1][2] == getActivePlayer().mark) {
                 console.log(`${getActivePlayer().name} Wins`);
                 return true
-             } else if (check[2][0] == getActivePlayer().mark && check[2][1] == getActivePlayer().mark && check[2][2] === getActivePlayer().mark) {
+             } else if (check[2][0] == getActivePlayer().mark && check[2][1] == getActivePlayer().mark && check[2][2] == getActivePlayer().mark) {
                 console.log(`${getActivePlayer().name} Wins`);
                 return true
              } else if (check[0][0] == getActivePlayer().mark && check[1][1] == getActivePlayer().mark && check[2][2] == getActivePlayer().mark) {
                 console.log(`${getActivePlayer().name} Wins`);
                 return true 
-             } else  if (check[0][2] == getActivePlayer().mark && check[1][1] == getActivePlayer().mark && check[2][0] === getActivePlayer().mark) {
+             } else  if (check[0][2] == getActivePlayer().mark && check[1][1] == getActivePlayer().mark && check[2][0] == getActivePlayer().mark) {
                 console.log(`${getActivePlayer().name} Wins`);
                 return true
              } else if (check[0][0] == getActivePlayer().mark && check[1][0] == getActivePlayer().mark && check[2][0] == getActivePlayer().mark) {
@@ -100,13 +135,22 @@ function gameFlow() {
              } else if (check[0][2] == getActivePlayer().mark && check[1][2] == getActivePlayer().mark &&  check[2][2] == getActivePlayer().mark) {
                 console.log(`${getActivePlayer().name} Wins`);
                 return true
-             } else return
+
+             } else if (check[0][1] == getActivePlayer().mark && check[1][1] == getActivePlayer().mark &&  check[2][1] == getActivePlayer().mark) {
+                console.log(`${getActivePlayer().name} Wins`);
+                return true
+
+             }
+             
+             else return
         }
 
         checkWin();
         
-        if(checkWin() === true) {
+        if(checkWin() == true) {
             board.displayBoard();
+            round.textContent = `${getActivePlayer().name}'s WINS`
+            round.style.backgroundColor = getActivePlayer().color
             return;
         }
             const tie = () => {
@@ -119,6 +163,7 @@ function gameFlow() {
 
             if(tie()) {
                 console.log("TIE")
+                round.textContent = "TIE"
                 return
             };
 
@@ -128,6 +173,7 @@ function gameFlow() {
 
     printNewRound();
 
+   
     return { 
         playTurn,
         getActivePlayer
