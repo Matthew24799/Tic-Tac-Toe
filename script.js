@@ -85,6 +85,7 @@ function gameFlow() {
         board.displayBoard();
         console.log(`${getActivePlayer().name}'s turn`)
         round.textContent = `${getActivePlayer().name}'s turn`
+        round.style.backgroundColor = getActivePlayer().color
     }
 
        
@@ -96,6 +97,7 @@ function gameFlow() {
          click.forEach((click) =>{
             click.textContent = ""
               click.style.backgroundColor = "white";
+              round.textContent = `${getActivePlayer().name}'s turn`
   })
 }
 
@@ -188,7 +190,8 @@ function gameFlow() {
          let mark = getActivePlayer().mark
          if(click.textContent == "") {
             click.textContent = mark;
-            click.style.backgroundColor = getActivePlayer().color
+            click.style.backgroundColor = getActivePlayer().color;
+            
          }
 
         
